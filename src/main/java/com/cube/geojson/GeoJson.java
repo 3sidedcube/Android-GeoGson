@@ -1,8 +1,9 @@
 package com.cube.geojson;
 
 import com.cube.geojson.adapter.CoordinateGeometryAdapter;
+import com.cube.geojson.adapter.GeoShapeAdapter;
 import com.cube.geojson.model.CoordinateGeometry;
-import com.cube.geojson.model.GeoJsonLocation;
+import com.cube.geojson.model.GeoShape;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonElement;
@@ -15,7 +16,7 @@ import com.google.gson.JsonParser;
  */
 public class GeoJson
 {
-	public static GeoJsonLocation fromJson(String json)
+	public static <T extends GeoShape> T fromJson(String json, Class<T> cls)
 	{
 		JsonParser parser = new JsonParser();
 		JsonElement jsonElement = parser.parse(json);
@@ -24,15 +25,23 @@ public class GeoJson
 			throw new JsonParseException("JSON must be an object to match GeoJson format!");
 		}
 
-		return fromJson(jsonElement.getAsJsonObject());
+		return fromJson(jsonElement.getAsJsonObject(), cls);
 	}
 
-	public static GeoJsonLocation fromJson(JsonObject jsonObject)
+	public static <T extends GeoShape> T fromJson(JsonObject jsonObject, Class<T> cls)
 	{
 		GsonBuilder builder = new GsonBuilder();
 		builder.registerTypeAdapter(CoordinateGeometry.class, new CoordinateGeometryAdapter());
+		builder.registerTypeAdapter(GeoShape.class, new GeoShapeAdapter());
 		Gson processor = builder.create();
 
-		return processor.fromJson(jsonObject, GeoJsonLocation.class);
+		try
+		{
+			return cls.cast(processor.fromJson(jsonObject.get("location"), GeoShape.class));
+		}
+		catch (ClassCastException ex)
+		{
+			return null;
+		}
 	}
 }

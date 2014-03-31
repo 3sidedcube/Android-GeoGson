@@ -1,7 +1,11 @@
 package com.cube.geojson;
 
-import com.cube.geojson.model.GeoJsonLocation;
-import com.cube.geojson.model.Shape;
+import com.cube.geojson.model.GeoCircle;
+import com.cube.geojson.model.GeoEnvelope;
+import com.cube.geojson.model.GeoMultipolygon;
+import com.cube.geojson.model.GeoPoint;
+import com.cube.geojson.model.GeoPolygon;
+import com.cube.geojson.model.GeoShape;
 
 import org.junit.Assert;
 import org.junit.Test;
@@ -23,94 +27,78 @@ public class GeoJsonParsingTest
 	@Test
 	public void testPointParsingCompletesSuccessfully()
 	{
-		GeoJsonLocation location = GeoJson.fromJson(testPointJson);
+		GeoPoint point = GeoJson.fromJson(testPointJson, GeoPoint.class);
 
-		Assert.assertNotNull(location);
+		Assert.assertNotNull(point);
 
-		Assert.assertNotNull(location.getShape());
+		Assert.assertEquals(GeoShape.TYPE_POINT, point.getType());
 
-		Assert.assertEquals(Shape.POINT, location.getShape().getType());
-
-		Assert.assertTrue(location.getShape().getCoordinates().isCoordinate());
-
-		Assert.assertEquals(0.0, location.getShape().getRadius(), 0.001);
+		Assert.assertTrue(point.getCoordinates().isCoordinate());
 	}
 
 	@Test
 	public void testEnvelopeParsingCompletesSuccessfully()
 	{
-		GeoJsonLocation location = GeoJson.fromJson(testEnvelopeJson);
+		GeoEnvelope envelope = GeoJson.fromJson(testEnvelopeJson, GeoEnvelope.class);
 
-		Assert.assertNotNull(location);
+		Assert.assertNotNull(envelope);
 
-		Assert.assertNotNull(location.getShape());
+		Assert.assertNotNull(envelope.getCoordinates());
 
-		Assert.assertEquals(Shape.ENVELOPE, location.getShape().getType());
+		Assert.assertEquals(GeoShape.TYPE_ENVELOPE, envelope.getType());
 
-		Assert.assertFalse(location.getShape().getCoordinates().isCoordinate());
-		Assert.assertTrue(location.getShape().getCoordinates().size() == 2);
+		Assert.assertFalse(envelope.getCoordinates().isCoordinate());
+		Assert.assertTrue(envelope.getCoordinates().size() == 2);
 
-		Assert.assertTrue(location.getShape().getCoordinates().get(0).isCoordinate());
-
-		Assert.assertEquals(0.0, location.getShape().getRadius(), 0.001);
+		Assert.assertTrue(envelope.getCoordinates().get(0).isCoordinate());
 	}
 
 	@Test
 	public void testPolygonParsingCompletesSuccessfully()
 	{
-		GeoJsonLocation location = GeoJson.fromJson(testPolygonJson);
+		GeoPolygon polygon = GeoJson.fromJson(testPolygonJson, GeoPolygon.class);
 
-		Assert.assertNotNull(location);
+		Assert.assertNotNull(polygon);
 
-		Assert.assertNotNull(location.getShape());
+		Assert.assertEquals(GeoShape.TYPE_POLYGON, polygon.getType());
 
-		Assert.assertEquals(Shape.POLYGON, location.getShape().getType());
+		Assert.assertFalse(polygon.getCoordinates().isCoordinate());
+		Assert.assertTrue(polygon.getCoordinates().size() == 1);
 
-		Assert.assertFalse(location.getShape().getCoordinates().isCoordinate());
-		Assert.assertTrue(location.getShape().getCoordinates().size() == 1);
+		Assert.assertTrue(polygon.getCoordinates().get(0).get(0).isCoordinate());
 
-		Assert.assertTrue(location.getShape().getCoordinates().get(0).get(0).isCoordinate());
-
-		Assert.assertTrue(location.getShape().getCoordinates().get(0).size() == 5);
-
-		Assert.assertEquals(0.0, location.getShape().getRadius(), 0.001);
+		Assert.assertTrue(polygon.getCoordinates().get(0).size() == 5);
 	}
 
 	@Test
 	public void testMultipolygonParsingCompletesSuccessfully()
 	{
-		GeoJsonLocation location = GeoJson.fromJson(testMultipolygonJson);
+		GeoMultipolygon location = GeoJson.fromJson(testMultipolygonJson, GeoMultipolygon.class);
 
 		Assert.assertNotNull(location);
 
-		Assert.assertNotNull(location.getShape());
+		Assert.assertEquals(GeoShape.TYPE_MULTIPOLYGON, location.getType());
 
-		Assert.assertEquals(Shape.MULTIPOLYGON, location.getShape().getType());
+		Assert.assertFalse(location.getCoordinates().isCoordinate());
+		Assert.assertTrue(location.getCoordinates().size() == 2);
 
-		Assert.assertFalse(location.getShape().getCoordinates().isCoordinate());
-		Assert.assertTrue(location.getShape().getCoordinates().size() == 2);
+		Assert.assertFalse(location.getCoordinates().get(0).get(0).isCoordinate());
+		Assert.assertTrue(location.getCoordinates().get(0).get(0).size() == 5);
 
-		Assert.assertFalse(location.getShape().getCoordinates().get(0).get(0).isCoordinate());
-		Assert.assertTrue(location.getShape().getCoordinates().get(0).get(0).size() == 5);
-
-		Assert.assertTrue(location.getShape().getCoordinates().get(1).size() == 2);
-
-		Assert.assertEquals(0.0, location.getShape().getRadius(), 0.001);
+		Assert.assertTrue(location.getCoordinates().get(1).size() == 2);
 	}
 
 	@Test
 	public void testCircleParsingCompletesSuccessfully()
 	{
-		GeoJsonLocation location = GeoJson.fromJson(testCircleJson);
+		GeoCircle location = GeoJson.fromJson(testCircleJson, GeoCircle.class);
 
 		Assert.assertNotNull(location);
 
-		Assert.assertNotNull(location.getShape());
+		Assert.assertEquals(GeoShape.TYPE_CIRCLE, location.getType());
 
-		Assert.assertEquals(Shape.CIRCLE, location.getShape().getType());
+		Assert.assertTrue(location.getCoordinates().isCoordinate());
 
-		Assert.assertTrue(location.getShape().getCoordinates().isCoordinate());
-
-		Assert.assertEquals(35.0, location.getShape().getRadius(), 0.001);
+		Assert.assertEquals(35.0, location.getRadius(), 0.001);
 	}
 }

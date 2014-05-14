@@ -4,9 +4,9 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-public class GeometryCollection extends GeoJsonObject implements Iterable<GeoJsonObject> {
-
-	private List<GeoJsonObject> geometries = new ArrayList<>();
+public class GeometryCollection extends GeoJsonObject implements Iterable<GeoJsonObject>
+{
+	private List<GeoJsonObject> geometries = new ArrayList<GeoJsonObject>();
 
 	public List<GeoJsonObject> getGeometries() {
 		return geometries;

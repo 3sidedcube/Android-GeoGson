@@ -1,27 +1,31 @@
-package org.geojson.jackson;
+package org.geojson.test;
 
-import static org.junit.Assert.*;
+import com.google.gson.Gson;
 
+import org.geojson.GeoJson;
 import org.geojson.GeoJsonObject;
 import org.geojson.LngLatAlt;
 import org.geojson.Point;
 import org.junit.Test;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 public class PointTest {
 
-	private ObjectMapper mapper = new ObjectMapper();
+	private Gson mapper = GeoJson.getGson();
 
 	@Test
 	public void itShouldSerializeAPoint() throws Exception {
 		Point point = new Point(100, 0);
-		assertEquals("{\"type\":\"Point\",\"coordinates\":[100.0,0.0]}", mapper.writeValueAsString(point));
+		assertEquals("{\"coordinates\":[100.0,0.0],\"type\":\"Point\"}", mapper.toJson(point));
 	}
 
 	@Test
 	public void itShouldDeserializeAPoint() throws Exception {
-		GeoJsonObject value = mapper.readValue("{\"type\":\"Point\",\"coordinates\":[100.0,5.0]}", GeoJsonObject.class);
+		GeoJsonObject value = mapper.fromJson("{\"type\":\"Point\",\"coordinates\":[100.0,5.0]}", GeoJsonObject.class);
 		assertNotNull(value);
 		assertTrue(value instanceof Point);
 		Point point = (Point)value;
@@ -40,7 +44,7 @@ public class PointTest {
 
 	@Test
 	public void itShouldDeserializeAPointWithAltitude() throws Exception {
-		GeoJsonObject value = mapper.readValue("{\"type\":\"Point\",\"coordinates\":[100.0,5.0,123]}",
+		GeoJsonObject value = mapper.fromJson("{\"coordinates\":[100.0,5.0,123],\"type\":\"Point\"}",
 				GeoJsonObject.class);
 		Point point = (Point)value;
 		assertLngLatAlt(100, 5, 123, point.getCoordinates());
@@ -49,6 +53,6 @@ public class PointTest {
 	@Test
 	public void itShouldSerializeAPointWithAltitude() throws Exception {
 		Point point = new Point(100, 0, 256);
-		assertEquals("{\"type\":\"Point\",\"coordinates\":[100.0,0.0,256.0]}", mapper.writeValueAsString(point));
+		assertEquals("{\"coordinates\":[100.0,0.0,256.0],\"type\":\"Point\"}", mapper.toJson(point));
 	}
 }

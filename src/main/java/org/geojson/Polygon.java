@@ -3,8 +3,6 @@ package org.geojson;
 import java.util.Arrays;
 import java.util.List;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 public class Polygon extends Geometry<List<LngLatAlt>> {
 
 	public Polygon() {
@@ -22,13 +20,11 @@ public class Polygon extends Geometry<List<LngLatAlt>> {
 		coordinates.add(0, points);
 	}
 
-	@JsonIgnore
 	public List<LngLatAlt> getExteriorRing() {
 		assertExteriorRing();
 		return coordinates.get(0);
 	}
 
-	@JsonIgnore
 	public List<List<LngLatAlt>> getInteriorRings() {
 		assertExteriorRing();
 		return coordinates.subList(1, coordinates.size());

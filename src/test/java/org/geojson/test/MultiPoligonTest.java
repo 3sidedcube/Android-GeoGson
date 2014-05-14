@@ -1,17 +1,18 @@
-package org.geojson.jackson;
+package org.geojson.test;
 
-import static org.junit.Assert.*;
+import com.google.gson.Gson;
 
+import org.geojson.GeoJson;
 import org.geojson.LngLatAlt;
 import org.geojson.MultiPolygon;
 import org.geojson.Polygon;
 import org.junit.Test;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
+import static org.junit.Assert.assertEquals;
 
 public class MultiPoligonTest {
 
-	private ObjectMapper mapper = new ObjectMapper();
+	private Gson mapper = GeoJson.getGson();
 
 	@Test
 	public void itShouldSerialize() throws Exception {
@@ -22,18 +23,19 @@ public class MultiPoligonTest {
 		polygon.addInteriorRing(MockData.INTERNAL);
 		multiPolygon.add(polygon);
 		assertEquals(
-				"{\"type\":\"MultiPolygon\",\"coordinates\":[[[[102.0,2.0],[103.0,2.0],[103.0,3.0],[102.0,3.0],[102.0,2.0]]],"
+				"{\"coordinates\":[[[[102.0,2.0],[103.0,2.0],[103.0,3.0],[102.0,3.0],[102.0,2.0]]],"
 						+ "[[[100.0,0.0],[101.0,0.0],[101.0,1.0],[100.0,1.0],[100.0,0.0]],"
-						+ "[[100.2,0.2],[100.8,0.2],[100.8,0.8],[100.2,0.8],[100.2,0.2]]]]}",
-				mapper.writeValueAsString(multiPolygon));
+						+ "[[100.2,0.2],[100.8,0.2],[100.8,0.8],[100.2,0.8],[100.2,0.2]]]],\"type\":\"MultiPolygon\"}",
+				mapper.toJson(multiPolygon));
 	}
 
 	@Test
 	public void itShouldDeserialize() throws Exception {
-		MultiPolygon multiPolygon = mapper.readValue(
-				"{\"type\":\"MultiPolygon\",\"coordinates\":[[[[102.0,2.0],[103.0,2.0],[103.0,3.0],[102.0,3.0],[102.0,2.0]]],"
+		MultiPolygon multiPolygon = mapper.fromJson(
+				"{\"coordinates\":[[[[102.0,2.0],[103.0,2.0],[103.0,3.0],[102.0,3.0],[102.0,2.0]]],"
 						+ "[[[100.0,0.0],[101.0,0.0],[101.0,1.0],[100.0,1.0],[100.0,0.0]],"
-						+ "[[100.2,0.2],[100.8,0.2],[100.8,0.8],[100.2,0.8],[100.2,0.2]]]]}", MultiPolygon.class);
+						+ "[[100.2,0.2],[100.8,0.2],[100.8,0.8],[100.2,0.8],[100.2,0.2]]]],\"type\":\"MultiPolygon\"}", MultiPolygon.class
+		);
 		assertEquals(2, multiPolygon.getCoordinates().size());
 	}
 }

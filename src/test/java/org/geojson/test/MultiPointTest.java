@@ -1,29 +1,31 @@
-package org.geojson.jackson;
+package org.geojson.test;
 
-import static org.junit.Assert.*;
+import com.google.gson.Gson;
+
+import org.geojson.GeoJson;
+import org.geojson.LngLatAlt;
+import org.geojson.MultiPoint;
+import org.junit.Assert;
+import org.junit.Test;
 
 import java.util.List;
 
-import org.geojson.LngLatAlt;
-import org.geojson.MultiPoint;
-import org.junit.Test;
-
-import com.fasterxml.jackson.databind.ObjectMapper;
+import static org.junit.Assert.assertNotNull;
 
 public class MultiPointTest {
 
-	private ObjectMapper mapper = new ObjectMapper();
+	private Gson mapper = GeoJson.getGson();
 
 	@Test
 	public void itShouldSerializeMultiPoint() throws Exception {
 		MultiPoint multiPoint = new MultiPoint(new LngLatAlt(100, 0), new LngLatAlt(101, 1));
-		assertEquals("{\"type\":\"MultiPoint\",\"coordinates\":[[100.0,0.0],[101.0,1.0]]}",
-				mapper.writeValueAsString(multiPoint));
+		Assert.assertEquals("{\"coordinates\":[[100.0,0.0],[101.0,1.0]],\"type\":\"MultiPoint\"}",
+				mapper.toJson(multiPoint));
 	}
 
 	@Test
 	public void itShouldDeserializeMultiPoint() throws Exception {
-		MultiPoint multiPoint = mapper.readValue("{\"type\":\"MultiPoint\",\"coordinates\":[[100.0,0.0],[101.0,1.0]]}",
+		MultiPoint multiPoint = mapper.fromJson("{\"coordinates\":[[100.0,0.0],[101.0,1.0]],\"type\":\"MultiPoint\"}",
 				MultiPoint.class);
 		assertNotNull(multiPoint);
 		List<LngLatAlt> coordinates = multiPoint.getCoordinates();

@@ -3,23 +3,19 @@ package org.geojson;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonInclude.Include;
-import com.fasterxml.jackson.annotation.JsonSubTypes;
-import com.fasterxml.jackson.annotation.JsonSubTypes.Type;
-import com.fasterxml.jackson.annotation.JsonTypeInfo;
-import com.fasterxml.jackson.annotation.JsonTypeInfo.Id;
-
-@JsonTypeInfo(property = "type", use = Id.NAME)
-@JsonSubTypes({ @Type(Feature.class), @Type(Polygon.class), @Type(MultiPolygon.class), @Type(FeatureCollection.class),
-		@Type(Point.class), @Type(MultiPoint.class), @Type(MultiLineString.class), @Type(LineString.class) })
-@JsonInclude(Include.NON_NULL)
-public abstract class GeoJsonObject {
+public abstract class GeoJsonObject
+{
+	protected String type;
 
 	private Crs crs;
 	private double[] bbox;
-	@JsonInclude(Include.NON_EMPTY)
-	private Map<String, Object> properties = new HashMap<>();
+
+	private Map<String, Object> properties = new HashMap<String, Object>();
+
+	public GeoJsonObject()
+	{
+		type = getClass().getSimpleName();
+	}
 
 	public Crs getCrs() {
 		return crs;

@@ -1,13 +1,5 @@
 package org.geojson;
 
-import org.geojson.jackson.LngLatAltDeserializer;
-import org.geojson.jackson.LngLatAltSerializer;
-
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-
-@JsonDeserialize(using = LngLatAltDeserializer.class)
-@JsonSerialize(using = LngLatAltSerializer.class)
 public class LngLatAlt {
 
 	private double longitude;

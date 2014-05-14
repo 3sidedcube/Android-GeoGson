@@ -1,30 +1,32 @@
-package org.geojson.jackson;
+package org.geojson.test;
 
-import static org.junit.Assert.*;
+import com.google.gson.Gson;
 
-import java.util.List;
-
+import org.geojson.GeoJson;
 import org.geojson.LineString;
 import org.geojson.LngLatAlt;
 import org.geojson.MultiPoint;
+import org.junit.Assert;
 import org.junit.Test;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
+import java.util.List;
+
+import static org.junit.Assert.assertNotNull;
 
 public class LineStringTest {
 
-	private ObjectMapper mapper = new ObjectMapper();
+	private Gson mapper = GeoJson.getGson();
 
 	@Test
 	public void itShouldSerializeMultiPoint() throws Exception {
 		MultiPoint lineString = new LineString(new LngLatAlt(100, 0), new LngLatAlt(101, 1));
-		assertEquals("{\"type\":\"LineString\",\"coordinates\":[[100.0,0.0],[101.0,1.0]]}",
-				mapper.writeValueAsString(lineString));
+		Assert.assertEquals("{\"coordinates\":[[100.0,0.0],[101.0,1.0]],\"type\":\"LineString\"}",
+				mapper.toJson(lineString));
 	}
 
 	@Test
 	public void itShouldDeserializeLineString() throws Exception {
-		LineString lineString = mapper.readValue("{\"type\":\"LineString\",\"coordinates\":[[100.0,0.0],[101.0,1.0]]}",
+		LineString lineString = mapper.fromJson("{\"coordinates\":[[100.0,0.0],[101.0,1.0]],\"type\":\"LineString\"}",
 				LineString.class);
 		assertNotNull(lineString);
 		List<LngLatAlt> coordinates = lineString.getCoordinates();

@@ -4,9 +4,6 @@ public class Point extends GeoJsonObject {
 
 	private LngLatAlt coordinates;
 
-	public Point() {
-	}
-
 	public Point(LngLatAlt coordinates) {
 		this.coordinates = coordinates;
 	}

@@ -1,9 +1,9 @@
-package org.geojson.jackson;
+package org.geojson.test;
+
+import org.geojson.LngLatAlt;
 
 import java.util.Arrays;
 import java.util.List;
-
-import org.geojson.LngLatAlt;
 
 public class MockData {
 

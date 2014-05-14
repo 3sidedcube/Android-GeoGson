@@ -1,34 +1,35 @@
-package org.geojson.jackson;
+package org.geojson.test;
 
-import static org.junit.Assert.*;
+import com.google.gson.Gson;
 
-import java.util.List;
-
+import org.geojson.GeoJson;
 import org.geojson.LngLatAlt;
 import org.geojson.Polygon;
 import org.junit.Test;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
+import java.util.List;
+
+import static org.junit.Assert.assertEquals;
 
 public class PolygonTest {
 
-	private ObjectMapper mapper = new ObjectMapper();
+	private Gson mapper = GeoJson.getGson();
 
 	@Test
 	public void itShouldSerialize() throws Exception {
 		Polygon polygon = new Polygon(MockData.EXTERNAL);
-		assertEquals("{\"type\":\"Polygon\",\"coordinates\":"
-				+ "[[[100.0,0.0],[101.0,0.0],[101.0,1.0],[100.0,1.0],[100.0,0.0]]]}",
-				mapper.writeValueAsString(polygon));
+		assertEquals("{\"coordinates\":"
+				+ "[[[100.0,0.0],[101.0,0.0],[101.0,1.0],[100.0,1.0],[100.0,0.0]]],\"type\":\"Polygon\"}",
+				mapper.toJson(polygon));
 	}
 
 	@Test
 	public void itShouldSerializeWithHole() throws Exception {
 		Polygon polygon = new Polygon(MockData.EXTERNAL);
 		polygon.addInteriorRing(MockData.INTERNAL);
-		assertEquals("{\"type\":\"Polygon\",\"coordinates\":"
+		assertEquals("{\"coordinates\":"
 				+ "[[[100.0,0.0],[101.0,0.0],[101.0,1.0],[100.0,1.0],[100.0,0.0]],"
-				+ "[[100.2,0.2],[100.8,0.2],[100.8,0.8],[100.2,0.8],[100.2,0.2]]]}", mapper.writeValueAsString(polygon));
+				+ "[[100.2,0.2],[100.8,0.2],[100.8,0.8],[100.2,0.8],[100.2,0.2]]],\"type\":\"Polygon\"}", mapper.toJson(polygon));
 	}
 
 	@Test(expected = RuntimeException.class)
@@ -38,10 +39,11 @@ public class PolygonTest {
 	}
 
 	@Test
-	public void itShouldDeserialize() throws Exception {
-		Polygon polygon = mapper.readValue("{\"type\":\"Polygon\",\"coordinates\":"
+	public void itShouldDeserialize() throws Exception
+	{
+		Polygon polygon = mapper.fromJson("{\"coordinates\":"
 				+ "[[[100.0,0.0],[101.0,0.0],[101.0,1.0],[100.0,1.0],[100.0,0.0]],"
-				+ "[[100.2,0.2],[100.8,0.2],[100.8,0.8],[100.2,0.8],[100.2,0.2]]]}", Polygon.class);
+				+ "[[100.2,0.2],[100.8,0.2],[100.8,0.8],[100.2,0.8],[100.2,0.2]]],\"type\":\"Polygon\"}", Polygon.class);
 		assertListEquals(MockData.EXTERNAL, polygon.getExteriorRing());
 		assertListEquals(MockData.INTERNAL, polygon.getInteriorRing(0));
 		assertListEquals(MockData.INTERNAL, polygon.getInteriorRings().get(0));

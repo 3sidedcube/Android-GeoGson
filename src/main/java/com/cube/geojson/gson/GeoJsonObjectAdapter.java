@@ -18,6 +18,9 @@ import com.google.gson.JsonDeserializer;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
+import com.google.gson.JsonSerializationContext;
+import com.google.gson.JsonSerializer;
+import com.google.gson.JsonSyntaxException;
 
 import java.lang.reflect.Type;
 import java.util.HashMap;
@@ -25,7 +28,7 @@ import java.util.HashMap;
 /**
  * Adapter for GeoJson objects
  */
-public class GeoJsonObjectAdapter implements JsonDeserializer<GeoJsonObject>
+public class GeoJsonObjectAdapter implements JsonSerializer<GeoJsonObject>, JsonDeserializer<GeoJsonObject>
 {
 	private static HashMap<String, String> lowerCaseMap;
 
@@ -42,6 +45,27 @@ public class GeoJsonObjectAdapter implements JsonDeserializer<GeoJsonObject>
 		lowerCaseMap.put(MultiPolygon.class.getSimpleName().toLowerCase(), MultiPolygon.class.getSimpleName());
 		lowerCaseMap.put(Point.class.getSimpleName().toLowerCase(), Point.class.getSimpleName());
 		lowerCaseMap.put(Polygon.class.getSimpleName().toLowerCase(), Polygon.class.getSimpleName());
+	}
+
+	@Override
+	@SuppressWarnings("unchecked")
+	public JsonElement serialize(GeoJsonObject src, Type typeOfSrc, JsonSerializationContext context)
+	{
+		Class<GeoJsonObject> cls;
+		try
+		{
+			cls = (Class<GeoJsonObject>) Class.forName(GeoJson.class.getPackage().getName().concat(".").concat(src.getType()));
+		}
+		catch (ClassNotFoundException e)
+		{
+			e.printStackTrace();
+			throw new JsonSyntaxException(e.getMessage());
+		}
+
+		GsonBuilder builder = new GsonBuilder();
+		GeoJson.registerAdapters(builder);
+
+		return builder.create().toJsonTree(src, cls);
 	}
 
 	@Override

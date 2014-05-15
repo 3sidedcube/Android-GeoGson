@@ -17,6 +17,8 @@ import java.util.Map;
  */
 public final class GeoJson
 {
+	public static boolean isUsingLowerCaseTypes = false;
+
 	public static Gson getGson()
 	{
 		return new GsonBuilder()
@@ -33,5 +35,10 @@ public final class GeoJson
 					}
 				})
 				.create();
+	}
+
+	public static void useLowerCaseTypes(boolean lowerCase)
+	{
+		GeoJson.isUsingLowerCaseTypes = lowerCase;
 	}
 }

@@ -18,6 +18,9 @@ public final class GeoJson
 {
 	public static boolean isUsingLowerCaseTypes = false;
 
+	/**
+	 * @deprecated Use {@link com.cube.geojson.GeoJson#registerAdapters(com.google.gson.GsonBuilder)}
+	 */
 	public static Gson getGson()
 	{
 		return new GsonBuilder()
@@ -34,6 +37,25 @@ public final class GeoJson
 					}
 				})
 				.create();
+	}
+
+	/**
+	 * Add the required serialization adapters to the Gson builder
+	 */
+	public static void registerAdapters(GsonBuilder builder)
+	{
+		builder.registerTypeAdapter(GeoJsonObject.class, new GeoJsonObjectAdapter());
+		builder.registerTypeAdapter(LngLatAlt.class, new LngLatAltAdapter());
+		builder.registerTypeHierarchyAdapter(Map.class, new JsonSerializer<Map<?, ?>>()
+		{
+			@Override public JsonElement serialize(Map<?, ?> src, Type typeOfSrc, JsonSerializationContext context)
+			{
+				if (src == null || src.isEmpty())
+					return null;
+
+				return context.serialize(this);
+			}
+		});
 	}
 
 	public static void useLowerCaseTypes(boolean lowerCase)

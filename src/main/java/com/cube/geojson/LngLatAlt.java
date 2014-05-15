@@ -1,7 +1,9 @@
 package com.cube.geojson;
 
-public class LngLatAlt {
+import java.io.Serializable;
 
+public class LngLatAlt implements Serializable
+{
 	private double longitude;
 	private double latitude;
 	private double altitude = Double.NaN;

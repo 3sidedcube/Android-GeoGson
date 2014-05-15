@@ -1,7 +1,7 @@
 package com.cube.geojson;
 
-public class Point extends GeoJsonObject {
-
+public class Point extends GeoJsonObject
+{
 	protected LngLatAlt coordinates;
 
 	public Point(LngLatAlt coordinates) {

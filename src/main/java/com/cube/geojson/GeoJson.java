@@ -18,6 +18,9 @@ public final class GeoJson
 {
 	public static boolean isUsingLowerCaseTypes = false;
 
+	/**
+	 * @deprecated Use {@link com.cube.geojson.GeoJson#registerAdapters(com.google.gson.GsonBuilder)}
+	 */
 	public static Gson getGson()
 	{
 		return new GsonBuilder()

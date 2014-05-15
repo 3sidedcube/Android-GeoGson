@@ -1,9 +1,10 @@
 package com.cube.geojson;
 
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
-public abstract class GeoJsonObject
+public abstract class GeoJsonObject implements Serializable
 {
 	protected String type;
 

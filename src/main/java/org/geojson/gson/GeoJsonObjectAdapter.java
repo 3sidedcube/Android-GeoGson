@@ -51,7 +51,7 @@ public class GeoJsonObjectAdapter implements JsonDeserializer<GeoJsonObject>
 		JsonObject jsonObject = json.getAsJsonObject();
 		String type = jsonObject.get("type").getAsString();
 
-		if (GeoJson.isUsingLowerCaseTypes)
+		if (GeoJson.isUsingLowerCaseTypes && lowerCaseMap.containsKey(type))
 		{
 			type = lowerCaseMap.get(type);
 		}

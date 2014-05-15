@@ -29,4 +29,9 @@ public class Circle extends Point
 	public void setRadius(double radius) {
 		this.radius = radius;
 	}
+
+	@Override public String toString()
+	{
+		return "[com.cube.geojson.Circle type: " + type + " coordinates: " + coordinates + " radius: " + radius + "]";
+	}
 }

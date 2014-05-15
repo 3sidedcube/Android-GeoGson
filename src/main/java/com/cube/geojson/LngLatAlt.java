@@ -49,4 +49,9 @@ public class LngLatAlt implements Serializable
 	public void setAltitude(double altitude) {
 		this.altitude = altitude;
 	}
+
+	@Override public String toString()
+	{
+		return "[com.cube.geojson.LngLatAlt lng: " + longitude + " lat: " + latitude + " alt: " + altitude + "]";
+	}
 }

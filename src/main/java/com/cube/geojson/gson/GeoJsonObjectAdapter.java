@@ -12,6 +12,7 @@ import com.cube.geojson.MultiPoint;
 import com.cube.geojson.MultiPolygon;
 import com.cube.geojson.Point;
 import com.cube.geojson.Polygon;
+import com.google.gson.GsonBuilder;
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonDeserializer;
 import com.google.gson.JsonElement;
@@ -66,6 +67,9 @@ public class GeoJsonObjectAdapter implements JsonDeserializer<GeoJsonObject>
 			throw new JsonParseException(e.getMessage());
 		}
 
-		return GeoJson.getGson().fromJson(json, cls);
+		GsonBuilder builder = new GsonBuilder();
+		GeoJson.registerAdapters(builder);
+
+		return builder.create().fromJson(json, cls);
 	}
 }

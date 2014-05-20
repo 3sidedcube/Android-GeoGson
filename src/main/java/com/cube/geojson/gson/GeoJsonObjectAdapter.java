@@ -1,5 +1,6 @@
 package com.cube.geojson.gson;
 
+import com.cube.geojson.Circle;
 import com.cube.geojson.Crs;
 import com.cube.geojson.Feature;
 import com.cube.geojson.FeatureCollection;
@@ -45,6 +46,7 @@ public class GeoJsonObjectAdapter implements JsonSerializer<GeoJsonObject>, Json
 		lowerCaseMap.put(MultiPolygon.class.getSimpleName().toLowerCase(), MultiPolygon.class.getSimpleName());
 		lowerCaseMap.put(Point.class.getSimpleName().toLowerCase(), Point.class.getSimpleName());
 		lowerCaseMap.put(Polygon.class.getSimpleName().toLowerCase(), Polygon.class.getSimpleName());
+		lowerCaseMap.put(Circle.class.getSimpleName().toLowerCase(), Circle.class.getSimpleName());
 	}
 
 	@Override
@@ -54,7 +56,7 @@ public class GeoJsonObjectAdapter implements JsonSerializer<GeoJsonObject>, Json
 		Class<GeoJsonObject> cls;
 		try
 		{
-			cls = (Class<GeoJsonObject>) Class.forName(GeoJson.class.getPackage().getName().concat(".").concat(src.getType()));
+			cls = (Class<GeoJsonObject>)Class.forName(GeoJson.class.getPackage().getName().concat(".").concat(src.getType()));
 		}
 		catch (ClassNotFoundException e)
 		{
@@ -83,7 +85,7 @@ public class GeoJsonObjectAdapter implements JsonSerializer<GeoJsonObject>, Json
 		Class<GeoJsonObject> cls;
 		try
 		{
-			cls = (Class<GeoJsonObject>) Class.forName(GeoJson.class.getPackage().getName().concat(".").concat(type));
+			cls = (Class<GeoJsonObject>)Class.forName(GeoJson.class.getPackage().getName().concat(".").concat(type));
 		}
 		catch (ClassNotFoundException e)
 		{

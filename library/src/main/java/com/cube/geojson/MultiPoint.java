@@ -1,17 +1,14 @@
 package com.cube.geojson;
 
 
-public class MultiPoint extends Geometry<LngLatAlt> {
-
-	public MultiPoint() {
-	}
-
-	@Override public void finishPopulate()
+public class MultiPoint extends Geometry<LngLatAlt>
+{
+	public MultiPoint()
 	{
-
 	}
 
-	public MultiPoint(LngLatAlt... points) {
+	public MultiPoint(LngLatAlt... points)
+	{
 		super(points);
 	}
 }

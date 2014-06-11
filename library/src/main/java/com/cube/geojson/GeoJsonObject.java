@@ -7,6 +7,8 @@ import java.util.Map;
 public abstract class GeoJsonObject implements Serializable
 {
 	protected String type;
+	private Crs crs;
+	private double[] bbox;
 
 	public void setType(String type)
 	{
@@ -17,9 +19,6 @@ public abstract class GeoJsonObject implements Serializable
 	{
 		return this.type;
 	}
-
-	private Crs crs;
-	private double[] bbox;
 
 	private Map<String, Object> properties = new HashMap<String, Object>();
 
@@ -36,11 +35,11 @@ public abstract class GeoJsonObject implements Serializable
 		this.crs = crs;
 	}
 
-	public double[] getBbox() {
+	public double[] getBoundingBox() {
 		return bbox;
 	}
 
-	public void setBbox(double[] bbox) {
+	public void SetBoundingBox(double[] bbox) {
 		this.bbox = bbox;
 	}
 

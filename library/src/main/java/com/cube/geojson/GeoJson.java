@@ -31,7 +31,9 @@ public final class GeoJson
 					@Override public JsonElement serialize(Map<?, ?> src, Type typeOfSrc, JsonSerializationContext context)
 					{
 						if (src == null || src.isEmpty())
+						{
 							return null;
+						}
 
 						return context.serialize(this);
 					}
@@ -51,7 +53,9 @@ public final class GeoJson
 			@Override public JsonElement serialize(Map<?, ?> src, Type typeOfSrc, JsonSerializationContext context)
 			{
 				if (src == null || src.isEmpty())
+				{
 					return null;
+				}
 
 				return context.serialize(this);
 			}

@@ -12,13 +12,8 @@ package com.cube.geojson;
  *     }
  * </pre>
  */
-public class Point extends GeoJsonObject
+public class Point extends Geometry<LngLatAlt>
 {
-	/**
-	 * The coordinates of the point
-	 */
-	protected LngLatAlt coordinates;
-
 	/**
 	 * Class constructor
 	 *
@@ -26,7 +21,7 @@ public class Point extends GeoJsonObject
 	 */
 	public Point(Point point)
 	{
-		this.coordinates = point.getCoordinates();
+		addCoordinates(point.getCoordinates().get(0));
 	}
 
 	/**
@@ -36,7 +31,7 @@ public class Point extends GeoJsonObject
 	 */
 	public Point(LngLatAlt coordinates)
 	{
-		this.coordinates = coordinates;
+		addCoordinates(coordinates);
 	}
 
 	/**
@@ -47,7 +42,7 @@ public class Point extends GeoJsonObject
 	 */
 	public Point(double longitude, double latitude)
 	{
-		coordinates = new LngLatAlt(longitude, latitude);
+		addCoordinates(new LngLatAlt(longitude, latitude));
 	}
 
 	/**
@@ -59,27 +54,7 @@ public class Point extends GeoJsonObject
 	 */
 	public Point(double longitude, double latitude, double altitude)
 	{
-		coordinates = new LngLatAlt(longitude, latitude, altitude);
-	}
-
-	/**
-	 * Gets the coordinates of the point
-	 *
-	 * @return The coordinates of the point
-	 */
-	public LngLatAlt getCoordinates()
-	{
-		return coordinates;
-	}
-
-	/**
-	 * Sets the coordinates of the point
-	 *
-	 * @param coordinates The new coordinates of the point
-	 */
-	public void setCoordinates(LngLatAlt coordinates)
-	{
-		this.coordinates = coordinates;
+		addCoordinates(new LngLatAlt(longitude, latitude, altitude));
 	}
 
 	@Override public String toString()

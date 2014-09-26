@@ -1,8 +1,8 @@
 package com.cube.geojson.test;
 
+import com.cube.geojson.GeoGson;
 import com.google.gson.Gson;
 
-import com.cube.geojson.GeoJson;
 import com.cube.geojson.GeoJsonObject;
 import org.junit.Assert;
 import org.junit.Test;
@@ -11,7 +11,7 @@ import static org.junit.Assert.assertNotNull;
 
 public class GeoJsonObjectTest
 {
-	private Gson mapper = GeoJson.getGson();
+	private Gson mapper = GeoGson.getGson();
 
 	private class TestGeoJsonObject extends GeoJsonObject
 	{
@@ -36,12 +36,12 @@ public class GeoJsonObjectTest
 	{
 		TestGeoJsonObject testObject = new TestGeoJsonObject();
 
-		GeoJson.useLowerCaseTypes(true);
+		GeoGson.useLowerCaseTypes(true);
 
 		String expected = "{\"type\":\"testgeojsonobject\"}";
 		String produced = mapper.toJson(testObject);
 
-		GeoJson.useLowerCaseTypes(false);
+		GeoGson.useLowerCaseTypes(false);
 
 		Assert.assertEquals(expected, produced);
 	}

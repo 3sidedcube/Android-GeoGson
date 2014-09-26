@@ -14,12 +14,12 @@ import java.util.Map;
 /**
  * Entrypoint for generating Gson parser with required overrides
  */
-public final class GeoJson
+public final class GeoGson
 {
 	public static boolean isUsingLowerCaseTypes = false;
 
 	/**
-	 * @deprecated Use {@link com.cube.geojson.GeoJson#registerAdapters(com.google.gson.GsonBuilder)}
+	 * Gets a new gson object. You should try to use {@link GeoGson#registerAdapters(com.google.gson.GsonBuilder)} instead
 	 */
 	public static Gson getGson()
 	{
@@ -51,6 +51,6 @@ public final class GeoJson
 
 	public static void useLowerCaseTypes(boolean lowerCase)
 	{
-		GeoJson.isUsingLowerCaseTypes = lowerCase;
+		GeoGson.isUsingLowerCaseTypes = lowerCase;
 	}
 }

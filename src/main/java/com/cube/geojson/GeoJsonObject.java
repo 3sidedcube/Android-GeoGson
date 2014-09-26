@@ -26,6 +26,11 @@ public abstract class GeoJsonObject implements Serializable
 	protected String type;
 
 	/**
+	 * The named CRS object (see http://geojson.org/geojson-spec.html#named-crs)
+	 */
+	private Crs crs;
+
+	/**
 	 * The bounding box coordinates of the object
 	 */
 	protected double[] boundingBox;
@@ -132,5 +137,25 @@ public abstract class GeoJsonObject implements Serializable
 	public Map<String, Object> getProperties()
 	{
 		return properties;
+	}
+
+	/**
+	 * Gets the CRS object
+	 *
+	 * @return The CRS object, or null
+	 */
+	public Crs getCrs()
+	{
+		return crs;
+	}
+
+	/**
+	 * Sets the CRS object
+	 *
+	 * @param crs The new CRS object for the model (PBR)
+	 */
+	public void setCrs(Crs crs)
+	{
+		this.crs = crs;
 	}
 }

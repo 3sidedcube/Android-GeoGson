@@ -44,7 +44,7 @@ public final class GeoJson
 	/**
 	 * Add the required serialization adapters to the Gson builder
 	 */
-	public static void registerAdapters(GsonBuilder builder)
+	public static GsonBuilder registerAdapters(GsonBuilder builder)
 	{
 		builder.registerTypeAdapter(GeoJsonObject.class, new GeoJsonObjectAdapter());
 		builder.registerTypeAdapter(LngLatAlt.class, new LngLatAltAdapter());
@@ -60,6 +60,8 @@ public final class GeoJson
 				return context.serialize(this);
 			}
 		});
+
+		return builder;
 	}
 
 	public static void useLowerCaseTypes(boolean lowerCase)

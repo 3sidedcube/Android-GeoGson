@@ -1,8 +1,8 @@
 package com.cube.geojson.test;
 
+import com.cube.geojson.GeoGson;
 import com.google.gson.Gson;
 
-import com.cube.geojson.GeoJson;
 import com.cube.geojson.GeoJsonObject;
 import com.cube.geojson.LngLatAlt;
 import com.cube.geojson.Point;
@@ -15,7 +15,7 @@ import static org.junit.Assert.assertTrue;
 
 public class PointTest {
 
-	private Gson mapper = GeoJson.getGson();
+	private Gson mapper = GeoGson.getGson();
 
 	@Test
 	public void itShouldSerializeAPoint() throws Exception {

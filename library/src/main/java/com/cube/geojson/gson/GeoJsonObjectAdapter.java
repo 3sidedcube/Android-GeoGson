@@ -4,7 +4,7 @@ import com.cube.geojson.Circle;
 import com.cube.geojson.Crs;
 import com.cube.geojson.Feature;
 import com.cube.geojson.FeatureCollection;
-import com.cube.geojson.GeoJson;
+import com.cube.geojson.GeoGson;
 import com.cube.geojson.GeoJsonObject;
 import com.cube.geojson.GeometryCollection;
 import com.cube.geojson.LineString;
@@ -56,7 +56,7 @@ public class GeoJsonObjectAdapter implements JsonSerializer<GeoJsonObject>, Json
 		Class<GeoJsonObject> cls;
 		try
 		{
-			cls = (Class<GeoJsonObject>)Class.forName(GeoJson.class.getPackage().getName().concat(".").concat(src.getType()));
+			cls = (Class<GeoJsonObject>)Class.forName(GeoGson.class.getPackage().getName().concat(".").concat(src.getType()));
 		}
 		catch (ClassNotFoundException e)
 		{
@@ -65,7 +65,7 @@ public class GeoJsonObjectAdapter implements JsonSerializer<GeoJsonObject>, Json
 		}
 
 		GsonBuilder builder = new GsonBuilder();
-		GeoJson.registerAdapters(builder);
+		GeoGson.registerAdapters(builder);
 
 		return builder.create().toJsonTree(src, cls);
 	}
@@ -77,7 +77,7 @@ public class GeoJsonObjectAdapter implements JsonSerializer<GeoJsonObject>, Json
 		JsonObject jsonObject = json.getAsJsonObject();
 		String type = jsonObject.get("type").getAsString();
 
-		if (GeoJson.isUsingLowerCaseTypes && lowerCaseMap.containsKey(type))
+		if (GeoGson.isUsingLowerCaseTypes && lowerCaseMap.containsKey(type))
 		{
 			type = lowerCaseMap.get(type);
 		}
@@ -85,7 +85,7 @@ public class GeoJsonObjectAdapter implements JsonSerializer<GeoJsonObject>, Json
 		Class<GeoJsonObject> cls;
 		try
 		{
-			cls = (Class<GeoJsonObject>)Class.forName(GeoJson.class.getPackage().getName().concat(".").concat(type));
+			cls = (Class<GeoJsonObject>)Class.forName(GeoGson.class.getPackage().getName().concat(".").concat(type));
 		}
 		catch (ClassNotFoundException e)
 		{
@@ -94,7 +94,7 @@ public class GeoJsonObjectAdapter implements JsonSerializer<GeoJsonObject>, Json
 		}
 
 		GsonBuilder builder = new GsonBuilder();
-		GeoJson.registerAdapters(builder);
+		GeoGson.registerAdapters(builder);
 
 		GeoJsonObject geoObject = builder.create().fromJson(json, cls);
 		geoObject.finishPopulate();

@@ -1,8 +1,8 @@
 package com.cube.geojson.test;
 
+import com.cube.geojson.GeoGson;
 import com.google.gson.Gson;
 
-import com.cube.geojson.GeoJson;
 import com.cube.geojson.LngLatAlt;
 import com.cube.geojson.MultiPolygon;
 import com.cube.geojson.Polygon;
@@ -12,7 +12,7 @@ import static org.junit.Assert.assertEquals;
 
 public class MultiPoligonTest {
 
-	private Gson mapper = GeoJson.getGson();
+	private Gson mapper = GeoGson.getGson();
 
 	@Test
 	public void itShouldSerialize() throws Exception {

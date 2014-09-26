@@ -1,37 +1,69 @@
 package com.cube.geojson;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
+/**
+ * Base class for geometries. See http://geojson.org/geojson-spec.html#geometrycollection for more info
+ *
+ * @param <T> The type of geometry
+ */
 public abstract class Geometry<T> extends GeoJsonObject
 {
 	protected List<T> coordinates = new ArrayList<T>();
 
+	/**
+	 * Class constructor
+	 */
 	public Geometry()
 	{
 	}
 
-	public Geometry(T... elements)
+	/**
+	 * Class constructor
+	 *
+	 * @param coordinates The list of coordinates to initialse the geometry with
+	 */
+	public Geometry(T... coordinates)
 	{
-		for (T coordinate : elements)
+		if (coordinates != null)
 		{
-			coordinates.add(coordinate);
+			Collections.addAll(this.coordinates, coordinates);
 		}
 	}
 
-	public Geometry<T> add(T elements)
+	/**
+	 * Adds a new coordinate to the list of coordinates
+	 *
+	 * @param coordinate The coordinate to add
+	 *
+	 * @return The geometry class to allow for chaining
+	 */
+	public Geometry<T> addCoordinate(T coordinate)
 	{
-		coordinates.add(elements);
+		coordinates.add(coordinate);
 		return this;
 	}
 
+	/**
+	 * Sets the geometry coordinates
+	 *
+	 * @param coordinates The new coordinates (PBV)
+	 */
+	public void setCoordinates(List<T> coordinates)
+	{
+		this.coordinates.clear();
+		this.coordinates.addAll(coordinates);
+	}
+
+	/**
+	 * Gets the list of coordinates from the geometry
+	 *
+	 * @return The list of coordinates
+	 */
 	public List<T> getCoordinates()
 	{
 		return coordinates;
-	}
-
-	public void setCoordinates(List<T> coordinates)
-	{
-		this.coordinates = coordinates;
 	}
 }

@@ -10,6 +10,6 @@ public class MultiLineString extends Geometry<List<LngLatAlt>>
 
 	public MultiLineString(List<LngLatAlt> line)
 	{
-		add(line);
+	//	add(line);
 	}
 }

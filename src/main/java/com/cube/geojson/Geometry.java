@@ -40,7 +40,7 @@ public abstract class Geometry<T> extends GeoJsonObject
 	 *
 	 * @return The geometry class to allow for chaining
 	 */
-	public Geometry<T> addCoordinate(T coordinate)
+	public Geometry<T> addCoordinates(T coordinate)
 	{
 		coordinates.add(coordinate);
 		return this;

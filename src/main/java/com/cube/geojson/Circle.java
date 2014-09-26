@@ -40,7 +40,7 @@ public class Circle extends Point
 	 */
 	public Circle(Point point, double radius)
 	{
-		super(point.getCoordinates());
+		super(point);
 		this.radius = radius;
 	}
 

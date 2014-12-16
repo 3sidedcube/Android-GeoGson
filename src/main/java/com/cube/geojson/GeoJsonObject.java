@@ -60,4 +60,6 @@ public abstract class GeoJsonObject implements Serializable
 	public void setProperties(Map<String, Object> properties) {
 		this.properties = properties;
 	}
+
+	public abstract void finishPopulate();
 }

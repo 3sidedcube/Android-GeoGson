@@ -96,6 +96,9 @@ public class GeoJsonObjectAdapter implements JsonSerializer<GeoJsonObject>, Json
 		GsonBuilder builder = new GsonBuilder();
 		GeoJson.registerAdapters(builder);
 
-		return builder.create().fromJson(json, cls);
+		GeoJsonObject geoObject = builder.create().fromJson(json, cls);
+		geoObject.finishPopulate();
+
+		return geoObject;
 	}
 }

@@ -8,6 +8,11 @@ public class Polygon extends Geometry<List<LngLatAlt>> {
 	public Polygon() {
 	}
 
+	@Override public void finishPopulate()
+	{
+
+	}
+
 	public Polygon(List<LngLatAlt> polygon) {
 		add(polygon);
 	}

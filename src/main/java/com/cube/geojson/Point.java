@@ -26,6 +26,12 @@ public class Point extends GeoJsonObject
 
 	@Override public void finishPopulate()
 	{
-
+		setBbox(new double[]
+		{
+			getCoordinates().getLongitude(),
+			getCoordinates().getLongitude(),
+			getCoordinates().getLatitude(),
+			getCoordinates().getLatitude()
+		});
 	}
 }

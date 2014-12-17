@@ -30,7 +30,7 @@ public class MultiPolygon extends Geometry<List<List<LngLatAlt>>> {
 				}
 			}
 		}
-		double[] bbox = new double[]{left,right,btm,top};
+		double[] bbox = new double[]{left,btm,right,top};
 		setBbox(bbox);
 	}
 

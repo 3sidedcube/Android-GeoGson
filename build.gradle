@@ -1,11 +1,16 @@
 apply plugin: 'java'
 
 repositories {
-    mavenCentral()
+	mavenCentral()
+}
+
+compileOptions {
+	sourceCompatibility JavaVersion.VERSION_1_7
+	targetCompatibility JavaVersion.VERSION_1_7
 }
 
 dependencies {
-    compile "com.google.code.gson:gson:2.2.4"
-    testCompile "org.mockito:mockito-all:1.9.5"
-    testCompile "junit:junit:4.11"
+	compile "com.google.code.gson:gson:2.2.4"
+	testCompile "org.mockito:mockito-all:1.9.5"
+	testCompile "junit:junit:4.11"
 }

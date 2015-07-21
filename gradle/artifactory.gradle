@@ -1,0 +1,97 @@
+/*
+ * Sets up info for a POM for a maven install/publish task.
+ *
+ * Set up your local sonatype credentials by editing/creating ~/.gradle/gradle.properties and enter:
+ * signing.keyId=<HEXADECIMCAL KEY ID RETRIVABLE VIA gpg --list-keys>
+ * signing.password=<KEY PASSWORD>
+ * signing.secretKeyRingFile=<PATH TO KEY RING, USUALLY ~/.gnupg/secring.gpg>
+ * ARTIFACTORY_USERNAME=<USERNAME>
+ * ARTIFACTORY_PASSWORD=<CORRESPONDING PASSWORD>
+ *
+ * Copyright (C) 2014 SCVNGR, Inc. d/b/a LevelUp
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except
+ * in compliance with the License. You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software distributed under the License
+ * is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
+ * or implied. See the License for the specific language governing permissions and limitations under
+ * the License.
+ */
+
+apply plugin: 'maven'
+apply plugin: 'signing'
+
+def setupPomInfo(pom)
+{
+	pom.groupId = GROUP
+	pom.artifactId = POM_ARTIFACT_ID
+	pom.version = VERSION_NAME
+
+	pom.project {
+		name POM_NAME
+		packaging POM_PACKAGING
+		description POM_DESCRIPTION
+		url POM_URL
+
+		scm {
+			url POM_SCM_URL
+			connection POM_SCM_CONNECTION
+			developerConnection POM_SCM_DEV_CONNECTION
+		}
+
+		licenses {
+			license {
+				name POM_LICENSE_NAME
+				url POM_LICENSE_URL
+				distribution 'repo'
+			}
+		}
+
+		developers {
+			developer {
+				id POM_DEVELOPER_ID
+				name POM_DEVELOPER_NAME
+			}
+		}
+	}
+}
+
+// Extra task definition is needed to work around naming conflict between maven and android plugins
+// http://stackoverflow.com/questions/18559932
+task installArchives(type: Upload) {
+	description "Installs artifacts to mavenLocal."
+	repositories.mavenInstaller {
+		configuration = configurations.default
+		setupPomInfo(pom)
+	}
+}
+
+ext.ARTIFACTORY_USERNAME = properties.get('ARTIFACTORY_USERNAME', '')
+ext.ARTIFACTORY_PASSWORD = properties.get('ARTIFACTORY_PASSWORD', '')
+
+afterEvaluate { project ->
+	uploadArchives {
+		repositories {
+			mavenDeployer {
+				beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
+				setupPomInfo(pom)
+
+				repository(url: 'http://oss.3sidedcube.com:8081/artifactory/internal') {
+					authentication(userName: ARTIFACTORY_USERNAME, password: ARTIFACTORY_PASSWORD)
+				}
+
+				snapshotRepository(url: 'http://oss.3sidedcube.com:8081/artifactory/snapshot') {
+					authentication(userName: ARTIFACTORY_USERNAME, password: ARTIFACTORY_PASSWORD)
+				}
+			}
+		}
+	}
+
+	signing {
+		required { gradle.taskGraph.hasTask("uploadArchives") }
+		sign configurations.archives
+	}
+}

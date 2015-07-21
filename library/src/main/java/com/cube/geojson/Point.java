@@ -23,4 +23,15 @@ public class Point extends GeoJsonObject
 	public void setCoordinates(LngLatAlt coordinates) {
 		this.coordinates = coordinates;
 	}
+
+	@Override public void finishPopulate()
+	{
+		setBbox(new double[]
+		{
+			getCoordinates().getLongitude(),
+			getCoordinates().getLongitude(),
+			getCoordinates().getLatitude(),
+			getCoordinates().getLatitude()
+		});
+	}
 }

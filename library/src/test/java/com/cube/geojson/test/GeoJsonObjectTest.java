@@ -15,6 +15,9 @@ public class GeoJsonObjectTest
 
 	private class TestGeoJsonObject extends GeoJsonObject
 	{
+		@Override public void finishPopulate()
+		{
+		}
 	}
 
 	@Test
@@ -29,20 +32,5 @@ public class GeoJsonObjectTest
 	{
 		TestGeoJsonObject testObject = new TestGeoJsonObject();
 		Assert.assertEquals("{\"type\":\"TestGeoJsonObject\"}", mapper.toJson(testObject));
-	}
-
-	@Test
-	public void itShouldSerializeTypeToLowerCaseWhenRequested()
-	{
-		TestGeoJsonObject testObject = new TestGeoJsonObject();
-
-		GeoJson.useLowerCaseTypes(true);
-
-		String expected = "{\"type\":\"testgeojsonobject\"}";
-		String produced = mapper.toJson(testObject);
-
-		GeoJson.useLowerCaseTypes(false);
-
-		Assert.assertEquals(expected, produced);
 	}
 }

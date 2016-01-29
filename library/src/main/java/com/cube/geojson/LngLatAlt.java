@@ -50,6 +50,12 @@ public class LngLatAlt implements Serializable
 		this.altitude = altitude;
 	}
 
+	@Override
+	public boolean equals(Object obj)
+	{
+		return (obj instanceof LngLatAlt) && (((LngLatAlt) obj).getLatitude() == latitude) && (((LngLatAlt) obj).getLongitude() == longitude);
+	}
+
 	@Override public String toString()
 	{
 		return "[com.cube.geojson.LngLatAlt lng: " + longitude + " lat: " + latitude + " alt: " + altitude + "]";

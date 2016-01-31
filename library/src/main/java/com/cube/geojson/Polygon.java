@@ -64,7 +64,7 @@ public class Polygon extends Geometry<List<LngLatAlt>> {
 			for (int i = 1; i < coordinate.size(); i++)
 			{
 				LngLatAlt v1 = coordinate.get(i - 1), v2 = coordinate.get(i);
-				// TODO ignore lines that could not possibly intersect
+				// TODO ignore lines that could not possibly intersect with coordinates of the given point
 				if (point.getCoordinates().equals(v2))
 				{
 					return true;

@@ -42,4 +42,16 @@ public class MultiPolygon extends Geometry<List<List<LngLatAlt>>> {
 		coordinates.add(polygon.getCoordinates());
 		return this;
 	}
+
+	public boolean contains(Point point)
+	{
+		for (List<List<LngLatAlt>> coordinate : coordinates)
+		{
+			if (GeoJson.pointInPolygon(coordinate, point))
+			{
+				return true;
+			}
+		}
+		return false;
+	}
 }

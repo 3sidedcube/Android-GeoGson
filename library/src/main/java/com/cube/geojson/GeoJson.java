@@ -22,36 +22,17 @@ public final class GeoJson
 		return new GsonBuilder()
 				.registerTypeAdapter(GeoJsonObject.class, new GeoJsonObjectAdapter())
 				.registerTypeAdapter(LngLatAlt.class, new LngLatAltAdapter())
-//				.registerTypeHierarchyAdapter(Map.class, new JsonSerializer<Map<?, ?>>()
-//				{
-//					@Override public JsonElement serialize(Map<?, ?> src, Type typeOfSrc, JsonSerializationContext context)
-//					{
-//						if (src == null || src.isEmpty())
-//							return null;
-//
-//						return context.serialize(this);
-//					}
-//				})
 				.create();
 	}
 
 	/**
 	 * Add the required serialization adapters to the Gson builder
 	 */
-	public static void registerAdapters(GsonBuilder builder)
+	public static GsonBuilder registerAdapters(GsonBuilder builder)
 	{
 		builder.registerTypeAdapter(GeoJsonObject.class, new GeoJsonObjectAdapter());
 		builder.registerTypeAdapter(LngLatAlt.class, new LngLatAltAdapter());
-//		builder.registerTypeHierarchyAdapter(Map.class, new JsonSerializer<Map<?, ?>>()
-//		{
-//			@Override public JsonElement serialize(Map<?, ?> src, Type typeOfSrc, JsonSerializationContext context)
-//			{
-//				if (src == null || src.isEmpty())
-//					return null;
-//
-//				return context.serialize(this);
-//			}
-//		});
+		return builder;
 	}
 
 	public static void useLowerCaseTypes(boolean lowerCase)

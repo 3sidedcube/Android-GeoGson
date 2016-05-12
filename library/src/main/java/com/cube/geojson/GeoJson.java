@@ -89,7 +89,7 @@ public final class GeoJson
 				}
 			}
 		}
-		
+
 		return intersections % 2 != 0;
 	}
 }

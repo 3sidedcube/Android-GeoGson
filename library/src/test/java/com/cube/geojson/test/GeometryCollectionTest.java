@@ -10,12 +10,13 @@ import com.cube.geojson.Point;
 import org.junit.Assert;
 import org.junit.Test;
 
-public class GeometryCollectionTest {
-
+public class GeometryCollectionTest
+{
 	private Gson mapper = GeoJson.getGson();
 
 	@Test
-	public void itShouldSerialize() throws Exception {
+	public void itShouldSerialize() throws Exception
+	{
 		GeometryCollection gc = new GeometryCollection();
 		gc.add(new Point(100, 0));
 		gc.add(new LineString(new LngLatAlt(101, 0), new LngLatAlt(102, 1)));

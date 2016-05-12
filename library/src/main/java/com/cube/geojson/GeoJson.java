@@ -32,6 +32,7 @@ public final class GeoJson
 	{
 		builder.registerTypeAdapter(GeoJsonObject.class, new GeoJsonObjectAdapter());
 		builder.registerTypeAdapter(LngLatAlt.class, new LngLatAltAdapter());
+
 		return builder;
 	}
 
@@ -54,6 +55,7 @@ public final class GeoJson
 				{
 					return true;
 				}
+
 				if (v1.getLatitude() == v2.getLatitude()
 						&& v1.getLatitude() == point.getCoordinates().getLatitude()
 						&& point.getCoordinates().getLongitude() > (v1.getLongitude() > v2.getLongitude() ? v2.getLongitude() : v1.getLongitude())
@@ -62,6 +64,7 @@ public final class GeoJson
 					// Is horizontal polygon boundary
 					return true;
 				}
+
 				if (point.getCoordinates().getLatitude() > (v1.getLatitude() < v2.getLatitude() ? v1.getLatitude() : v2.getLatitude())
 						&& point.getCoordinates().getLatitude() <= (v1.getLatitude() < v2.getLatitude() ? v2.getLatitude() : v1.getLatitude())
 						&& point.getCoordinates().getLongitude() <= (v1.getLongitude() < v2.getLongitude() ? v2.getLongitude() : v1.getLongitude())
@@ -72,11 +75,13 @@ public final class GeoJson
 									(v2.getLongitude() - v1.getLongitude()) /
 									(v2.getLatitude() - v1.getLatitude()) +
 									v1.getLongitude());
+
 					if (intersection == point.getCoordinates().getLongitude())
 					{
 						// Is other boundary
 						return true;
 					}
+
 					if (v1.getLongitude() == v2.getLongitude() || point.getCoordinates().getLongitude() <= intersection)
 					{
 						intersections++;
@@ -84,6 +89,7 @@ public final class GeoJson
 				}
 			}
 		}
+		
 		return intersections % 2 != 0;
 	}
 }

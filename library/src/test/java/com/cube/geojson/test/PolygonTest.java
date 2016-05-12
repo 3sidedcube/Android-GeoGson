@@ -11,12 +11,13 @@ import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 
-public class PolygonTest {
-
+public class PolygonTest
+{
 	private Gson mapper = GeoJson.getGson();
 
 	@Test
-	public void itShouldSerialize() throws Exception {
+	public void itShouldSerialize() throws Exception
+	{
 		Polygon polygon = new Polygon(MockData.EXTERNAL);
 		assertEquals("{\"coordinates\":"
 				+ "[[[100.0,0.0],[101.0,0.0],[101.0,1.0],[100.0,1.0],[100.0,0.0]]],\"type\":\"Polygon\"}",
@@ -24,7 +25,8 @@ public class PolygonTest {
 	}
 
 	@Test
-	public void itShouldSerializeWithHole() throws Exception {
+	public void itShouldSerializeWithHole() throws Exception
+	{
 		Polygon polygon = new Polygon(MockData.EXTERNAL);
 		polygon.addInteriorRing(MockData.INTERNAL);
 		assertEquals("{\"coordinates\":"
@@ -33,7 +35,8 @@ public class PolygonTest {
 	}
 
 	@Test(expected = RuntimeException.class)
-	public void itShouldFailOnAddInteriorRingWithoutExteriorRing() throws Exception {
+	public void itShouldFailOnAddInteriorRingWithoutExteriorRing() throws Exception
+	{
 		Polygon polygon = new Polygon();
 		polygon.addInteriorRing(MockData.EXTERNAL);
 	}
@@ -49,8 +52,10 @@ public class PolygonTest {
 		assertListEquals(MockData.INTERNAL, polygon.getInteriorRings().get(0));
 	}
 
-	private void assertListEquals(List<LngLatAlt> expectedList, List<LngLatAlt> actualList) {
-		for (int x = 0; x < actualList.size(); x++) {
+	private void assertListEquals(List<LngLatAlt> expectedList, List<LngLatAlt> actualList)
+	{
+		for (int x = 0; x < actualList.size(); x++)
+		{
 			LngLatAlt expected = expectedList.get(x);
 			LngLatAlt actual = actualList.get(x);
 			PointTest.assertLngLatAlt(expected.getLongitude(), expected.getLatitude(), expected.getAltitude(), actual);

@@ -1,23 +1,27 @@
 package com.cube.geojson;
 
-public class Feature extends GeoJsonObject {
-
+public class Feature extends GeoJsonObject
+{
 	private GeoJsonObject geometry;
 	private String id;
 
-	public GeoJsonObject getGeometry() {
+	public GeoJsonObject getGeometry()
+	{
 		return geometry;
 	}
 
-	public void setGeometry(GeoJsonObject geometry) {
+	public void setGeometry(GeoJsonObject geometry)
+	{
 		this.geometry = geometry;
 	}
 
-	public String getId() {
+	public String getId()
+	{
 		return id;
 	}
 
-	public void setId(String id) {
+	public void setId(String id)
+	{
 		this.id = id;
 	}
 

@@ -28,36 +28,43 @@ public abstract class GeoJsonObject implements Serializable
 		type = getClass().getSimpleName();
 	}
 
-	public Crs getCrs() {
+	public Crs getCrs()
+	{
 		return crs;
 	}
 
-	public void setCrs(Crs crs) {
+	public void setCrs(Crs crs)
+	{
 		this.crs = crs;
 	}
 
-	public double[] getBbox() {
+	public double[] getBbox()
+	{
 		return bbox;
 	}
 
-	public void setBbox(double[] bbox) {
+	public void setBbox(double[] bbox)
+	{
 		this.bbox = bbox;
 	}
 
-	public void setProperty(String key, Object value) {
+	public void setProperty(String key, Object value)
+	{
 		properties.put(key, value);
 	}
 
-	@SuppressWarnings("unchecked")
-	public <T> T getProperty(String key) {
+	@SuppressWarnings("unchecked") public <T> T getProperty(String key)
+	{
 		return (T)properties.get(key);
 	}
 
-	public Map<String, Object> getProperties() {
+	public Map<String, Object> getProperties()
+	{
 		return properties;
 	}
 
-	public void setProperties(Map<String, Object> properties) {
+	public void setProperties(Map<String, Object> properties)
+	{
 		this.properties = properties;
 	}
 

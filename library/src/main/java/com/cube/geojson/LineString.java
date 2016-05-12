@@ -1,12 +1,14 @@
 package com.cube.geojson;
 
 
-public class LineString extends MultiPoint {
-
-	public LineString() {
+public class LineString extends MultiPoint
+{
+	public LineString()
+	{
 	}
 
-	public LineString(LngLatAlt... points) {
+	public LineString(LngLatAlt... points)
+	{
 		super(points);
 	}
 }

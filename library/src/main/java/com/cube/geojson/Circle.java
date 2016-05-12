@@ -4,6 +4,10 @@ public class Circle extends Point
 {
 	private double radius;
 
+	public Circle()
+	{
+	}
+
 	public Circle(LngLatAlt coordinates, double radius)
 	{
 		super(coordinates);

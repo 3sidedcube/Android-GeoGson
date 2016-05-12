@@ -3,29 +3,35 @@ package com.cube.geojson;
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class Geometry<T> extends GeoJsonObject {
-
+public abstract class Geometry<T> extends GeoJsonObject
+{
 	protected List<T> coordinates = new ArrayList<T>();
 
-	public Geometry() {
+	public Geometry()
+	{
 	}
 
-	public Geometry(T... elements) {
-		for (T coordinate : elements) {
+	public Geometry(T... elements)
+	{
+		for (T coordinate : elements)
+		{
 			coordinates.add(coordinate);
 		}
 	}
 
-	public Geometry<T> add(T elements) {
+	public Geometry<T> add(T elements)
+	{
 		coordinates.add(elements);
 		return this;
 	}
 
-	public List<T> getCoordinates() {
+	public List<T> getCoordinates()
+	{
 		return coordinates;
 	}
 
-	public void setCoordinates(List<T> coordinates) {
+	public void setCoordinates(List<T> coordinates)
+	{
 		this.coordinates = coordinates;
 	}
 }

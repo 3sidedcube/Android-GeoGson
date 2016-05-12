@@ -8,20 +8,23 @@ public class GeometryCollection extends GeoJsonObject implements Iterable<GeoJso
 {
 	private List<GeoJsonObject> geometries = new ArrayList<GeoJsonObject>();
 
-	public List<GeoJsonObject> getGeometries() {
+	public List<GeoJsonObject> getGeometries()
+	{
 		return geometries;
 	}
 
-	public void setGeometries(List<GeoJsonObject> geometries) {
+	public void setGeometries(List<GeoJsonObject> geometries)
+	{
 		this.geometries = geometries;
 	}
 
-	@Override
-	public Iterator<GeoJsonObject> iterator() {
+	@Override public Iterator<GeoJsonObject> iterator()
+	{
 		return geometries.iterator();
 	}
 
-	public GeometryCollection add(GeoJsonObject geometry) {
+	public GeometryCollection add(GeoJsonObject geometry)
+	{
 		geometries.add(geometry);
 		return this;
 	}

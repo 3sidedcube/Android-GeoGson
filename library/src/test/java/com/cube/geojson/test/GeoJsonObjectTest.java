@@ -1,13 +1,11 @@
 package com.cube.geojson.test;
 
-import com.google.gson.Gson;
-
 import com.cube.geojson.GeoJson;
 import com.cube.geojson.GeoJsonObject;
+import com.google.gson.Gson;
+
 import org.junit.Assert;
 import org.junit.Test;
-
-import static org.junit.Assert.assertNotNull;
 
 public class GeoJsonObjectTest
 {
@@ -20,15 +18,14 @@ public class GeoJsonObjectTest
 		}
 	}
 
-	@Test
-	public void itShouldHaveProperties() throws Exception
+	@Test public void itShouldHaveProperties() throws Exception
 	{
 		TestGeoJsonObject testObject = new TestGeoJsonObject();
-		assertNotNull(testObject.getProperties());
+		testObject.setProperty("property", "value");
+		Assert.assertNotNull(testObject.getProperties());
 	}
 
-	@Test
-	public void itShouldNotSerializeEmptyProperties() throws Exception
+	@Test public void itShouldNotSerializeEmptyProperties() throws Exception
 	{
 		TestGeoJsonObject testObject = new TestGeoJsonObject();
 		Assert.assertEquals("{\"type\":\"TestGeoJsonObject\"}", mapper.toJson(testObject));

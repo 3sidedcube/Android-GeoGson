@@ -94,4 +94,20 @@ afterEvaluate { project ->
 		required { gradle.taskGraph.hasTask("uploadArchives") }
 		sign configurations.archives
 	}
+
+	task javadocsJar(type: Jar, dependsOn: javadoc) {
+		classifier = 'javadoc'
+		from javadoc.destinationDir
+	}
+
+	task sourceJar(type: Jar) {
+		classifier = 'sources'
+		from sourceSets.main.allSource
+	}
+
+	artifacts {
+		archives jar
+		archives sourceJar
+		archives javadocsJar
+	}
 }

@@ -21,18 +21,6 @@ In order for the gson to correctly inflate into geojson objects, you must make s
 GsonBuilder builder = new GsonBuilder();
 builder.registerTypeAdapter(GeoJsonObject.class, new GeoJsonObjectAdapter());
 builder.registerTypeAdapter(LngLatAlt.class, new LngLatAltAdapter());
-builder.registerTypeHierarchyAdapter(Map.class, new JsonSerializer<Map<?, ?>>()
-{
-	@Override public JsonElement serialize(Map<?, ?> src, Type typeOfSrc, JsonSerializationContext context)
-	{
-		if (src == null || src.isEmpty())
-		{
-			return null;
-		}
-
-		return context.serialize(this);
-	}
-});
 ```
 
 You can use the methods found in `GeoGson` to automatically add these adapters to your builder object, or create a new gson instance with the adapters already added
@@ -59,7 +47,7 @@ This will automatically parse the provided JSON string into its correct class (i
 To include the project, add the following to your `build.gradle`
 
 ```
-compile 'com.3sidedcube.util:GeoGson:1.5'
+compile 'com.3sidedcube.util:GeoGson:1.6'
 ```
 
 ##License

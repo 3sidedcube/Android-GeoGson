@@ -6,6 +6,13 @@ import java.util.List;
 
 public class GeometryCollection extends GeoJsonObject implements Iterable<GeoJsonObject>
 {
+	public static String TYPE_NAME = "GeometryCollection";
+
+	public GeometryCollection()
+	{
+		super(TYPE_NAME);
+	}
+
 	private List<GeoJsonObject> geometries = new ArrayList<GeoJsonObject>();
 
 	public List<GeoJsonObject> getGeometries()

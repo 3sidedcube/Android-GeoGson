@@ -4,8 +4,11 @@ import java.util.List;
 
 public class MultiPolygon extends Geometry<List<List<LngLatAlt>>>
 {
+	public static String TYPE_NAME = "MultiPolygon";
+
 	public MultiPolygon()
 	{
+		super(TYPE_NAME);
 	}
 
 	@Override public void finishPopulate()
@@ -49,6 +52,7 @@ public class MultiPolygon extends Geometry<List<List<LngLatAlt>>>
 
 	public MultiPolygon(Polygon polygon)
 	{
+		super(TYPE_NAME);
 		add(polygon);
 	}
 

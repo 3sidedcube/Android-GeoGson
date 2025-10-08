@@ -2,24 +2,53 @@ package com.cube.geojson;
 
 public class Point extends GeoJsonObject
 {
+	public static String TYPE_NAME = "Point";
+	
 	protected LngLatAlt coordinates;
 
 	public Point()
 	{
+		super(TYPE_NAME);
+	}
+
+	protected Point(String type)
+	{
+		super(type);
 	}
 
 	public Point(LngLatAlt coordinates)
 	{
+		super(TYPE_NAME);
+		this.coordinates = coordinates;
+	}
+
+	protected Point(String type, LngLatAlt coordinates)
+	{
+		super(type);
 		this.coordinates = coordinates;
 	}
 
 	public Point(double longitude, double latitude)
 	{
+		super(TYPE_NAME);
+		coordinates = new LngLatAlt(longitude, latitude);
+	}
+
+	protected Point(String type, double longitude, double latitude)
+	{
+		super(type);
 		coordinates = new LngLatAlt(longitude, latitude);
 	}
 
 	public Point(double longitude, double latitude, double altitude)
 	{
+		super(TYPE_NAME);
+		coordinates = new LngLatAlt(longitude, latitude, altitude);
+	}
+
+	protected Point(String type, double longitude, double latitude, double altitude)
+	{
+		super(type);
 		coordinates = new LngLatAlt(longitude, latitude, altitude);
 	}
 

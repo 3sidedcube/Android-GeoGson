@@ -13,6 +13,11 @@ public class GeoJsonObjectTest
 
 	private class TestGeoJsonObject extends GeoJsonObject
 	{
+		public TestGeoJsonObject()
+		{
+			super("TestGeoJsonObject");
+		}
+
 		@Override public void finishPopulate()
 		{
 		}

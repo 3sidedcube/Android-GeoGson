@@ -2,27 +2,29 @@ package com.cube.geojson;
 
 public class Circle extends Point
 {
+	public static String TYPE_NAME = "Circle";
 	private double radius;
 
 	public Circle()
 	{
+		super(TYPE_NAME);
 	}
 
 	public Circle(LngLatAlt coordinates, double radius)
 	{
-		super(coordinates);
+		super(TYPE_NAME, coordinates);
 		this.radius = radius;
 	}
 
 	public Circle(double longitude, double latitude, double radius)
 	{
-		super(longitude, latitude);
+		super(TYPE_NAME, longitude, latitude);
 		this.radius = radius;
 	}
 
 	public Circle(double longitude, double latitude, double altitude, double radius)
 	{
-		super(longitude, latitude, altitude);
+		super(TYPE_NAME, longitude, latitude, altitude);
 		this.radius = radius;
 	}
 

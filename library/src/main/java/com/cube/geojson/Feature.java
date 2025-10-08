@@ -2,8 +2,13 @@ package com.cube.geojson;
 
 public class Feature extends GeoJsonObject
 {
+	public static String TYPE_NAME = "Feature";
 	private GeoJsonObject geometry;
 	private String id;
+
+	public Feature() {
+		super(TYPE_NAME);
+	}
 
 	public GeoJsonObject getGeometry()
 	{

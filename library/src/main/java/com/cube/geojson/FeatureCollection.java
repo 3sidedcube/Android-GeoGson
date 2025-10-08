@@ -7,6 +7,13 @@ import java.util.List;
 
 public class FeatureCollection extends GeoJsonObject implements Iterable<Feature>
 {
+	public static String TYPE_NAME = "FeatureCollection";
+
+	public FeatureCollection()
+	{
+		super(TYPE_NAME);
+	}
+
 	private List<Feature> features = new ArrayList<Feature>();
 
 	public List<Feature> getFeatures()

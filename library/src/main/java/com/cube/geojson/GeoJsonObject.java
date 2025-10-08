@@ -22,9 +22,9 @@ public abstract class GeoJsonObject implements Serializable
 		return this.type;
 	}
 
-	public GeoJsonObject()
+	protected GeoJsonObject(String type)
 	{
-		type = getClass().getSimpleName();
+		this.type = type;
 	}
 
 	public Crs getCrs()

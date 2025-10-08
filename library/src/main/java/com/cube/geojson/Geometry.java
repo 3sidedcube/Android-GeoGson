@@ -7,12 +7,14 @@ public abstract class Geometry<T> extends GeoJsonObject
 {
 	protected List<T> coordinates = new ArrayList<T>();
 
-	public Geometry()
+	protected Geometry(String type)
 	{
+		super(type);
 	}
 
-	public Geometry(T... elements)
+	protected Geometry(String type, T... elements)
 	{
+		super(type);
 		for (T coordinate : elements)
 		{
 			coordinates.add(coordinate);

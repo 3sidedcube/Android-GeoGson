@@ -31,7 +31,7 @@ afterEvaluate { project ->
 	publishing {
 		publications {
 			mavenJava(MavenPublication) {
-				from components.findByName('release')
+				from components.java
 				groupId = GROUP
 				artifactId = POM_ARTIFACT_ID
 				version = VERSION_NAME
@@ -67,7 +67,7 @@ afterEvaluate { project ->
 		}
 		repositories {
 			maven {
-				url = "http://oss.3sidedcube.com:8081/artifactory/private"
+				url = "http://oss.3sidedcube.com:8081/artifactory/internal"
 				allowInsecureProtocol = true
 				credentials {
 					username = ARTIFACTORY_USERNAME

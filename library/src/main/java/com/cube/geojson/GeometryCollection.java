@@ -1,5 +1,7 @@
 package com.cube.geojson;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -13,7 +15,7 @@ public class GeometryCollection extends GeoJsonObject implements Iterable<GeoJso
 		super(TYPE_NAME);
 	}
 
-	private List<GeoJsonObject> geometries = new ArrayList<GeoJsonObject>();
+	@SerializedName("geometries") private List<GeoJsonObject> geometries = new ArrayList<>();
 
 	public List<GeoJsonObject> getGeometries()
 	{

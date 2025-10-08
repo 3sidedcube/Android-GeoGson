@@ -1,10 +1,12 @@
 package com.cube.geojson;
 
+import com.google.gson.annotations.SerializedName;
+
 public class Feature extends GeoJsonObject
 {
 	public static String TYPE_NAME = "Feature";
-	private GeoJsonObject geometry;
-	private String id;
+	@SerializedName("geometry") private GeoJsonObject geometry;
+	@SerializedName("id") private String id;
 
 	public Feature() {
 		super(TYPE_NAME);

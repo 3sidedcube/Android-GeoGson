@@ -1,5 +1,7 @@
 package com.cube.geojson;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
@@ -14,7 +16,7 @@ public class FeatureCollection extends GeoJsonObject implements Iterable<Feature
 		super(TYPE_NAME);
 	}
 
-	private List<Feature> features = new ArrayList<Feature>();
+	@SerializedName("features") private List<Feature> features = new ArrayList<>();
 
 	public List<Feature> getFeatures()
 	{

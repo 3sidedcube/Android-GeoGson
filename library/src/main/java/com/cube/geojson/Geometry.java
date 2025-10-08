@@ -1,11 +1,13 @@
 package com.cube.geojson;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public abstract class Geometry<T> extends GeoJsonObject
 {
-	protected List<T> coordinates = new ArrayList<T>();
+	@SerializedName("coordinates") protected List<T> coordinates = new ArrayList<>();
 
 	protected Geometry(String type)
 	{

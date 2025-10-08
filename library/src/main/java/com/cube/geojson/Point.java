@@ -1,10 +1,12 @@
 package com.cube.geojson;
 
+import com.google.gson.annotations.SerializedName;
+
 public class Point extends GeoJsonObject
 {
 	public static String TYPE_NAME = "Point";
-	
-	protected LngLatAlt coordinates;
+
+	@SerializedName("coordinates") protected LngLatAlt coordinates;
 
 	public Point()
 	{

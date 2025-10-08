@@ -1,16 +1,18 @@
 package com.cube.geojson;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
 public abstract class GeoJsonObject implements Serializable
 {
-	protected String type;
-	private Crs crs;
-	private double[] bbox;
+	@SerializedName("type") protected String type;
+	@SerializedName("crs") private Crs crs;
+	@SerializedName("bbox") private double[] bbox;
 
-	private Map<String, Object> properties;
+	@SerializedName("properties") private Map<String, Object> properties;
 
 	public void setType(String type)
 	{

@@ -1,9 +1,11 @@
 package com.cube.geojson;
 
+import com.google.gson.annotations.SerializedName;
+
 public class Circle extends Point
 {
 	public static String TYPE_NAME = "Circle";
-	private double radius;
+	@SerializedName("radius") private double radius;
 
 	public Circle()
 	{

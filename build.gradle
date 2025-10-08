@@ -16,6 +16,7 @@ allprojects {
 		mavenCentral()
 		maven {
 			url 'http://oss.3sidedcube.com:8081/artifactory/internal'
+			allowInsecureProtocol = true
 		}
 	}
 }

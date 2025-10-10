@@ -5,14 +5,14 @@ repositories {
 }
 
 compileJava {
-	sourceCompatibility = 1.7
-	targetCompatibility = 1.7
+	sourceCompatibility = JavaVersion.VERSION_17
+	targetCompatibility = JavaVersion.VERSION_17
 }
 
 dependencies {
-	compile "com.google.code.gson:gson:2.3"
-	testCompile "org.mockito:mockito-all:1.9.5"
-	testCompile "junit:junit:4.11"
+	implementation "com.google.code.gson:gson:2.13.2"
+	testImplementation "org.mockito:mockito-all:1.9.5"
+	testImplementation "junit:junit:4.13.2"
 }
 
 //apply from: '../gradle/sonatype.gradle'

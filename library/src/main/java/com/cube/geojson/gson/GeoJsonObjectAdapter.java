@@ -25,28 +25,38 @@ import com.google.gson.JsonSyntaxException;
 
 import java.lang.reflect.Type;
 import java.util.HashMap;
+import java.util.Locale;
+import java.util.Map;
 
 /**
  * Adapter for GeoJson objects
  */
 public class GeoJsonObjectAdapter implements JsonSerializer<GeoJsonObject>, JsonDeserializer<GeoJsonObject>
 {
-	private static HashMap<String, String> lowerCaseMap;
+	private static final HashMap<String, Class<?>> classMap;
+	private static final HashMap<String, Class<?>> lowercaseClassMap;
+
+	private static void registerType(String type, Class<?> clazz)
+	{
+		classMap.put(type, clazz);
+		lowercaseClassMap.put(type.toLowerCase(Locale.ENGLISH), clazz);
+	}
 
 	static
 	{
-		lowerCaseMap = new HashMap<String, String>();
-		lowerCaseMap.put(Crs.class.getSimpleName().toLowerCase(), Crs.class.getSimpleName());
-		lowerCaseMap.put(Feature.class.getSimpleName().toLowerCase(), Feature.class.getSimpleName());
-		lowerCaseMap.put(FeatureCollection.class.getSimpleName().toLowerCase(), FeatureCollection.class.getSimpleName());
-		lowerCaseMap.put(GeometryCollection.class.getSimpleName().toLowerCase(), GeometryCollection.class.getSimpleName());
-		lowerCaseMap.put(LineString.class.getSimpleName().toLowerCase(), LineString.class.getSimpleName());
-		lowerCaseMap.put(MultiLineString.class.getSimpleName().toLowerCase(), MultiLineString.class.getSimpleName());
-		lowerCaseMap.put(MultiPoint.class.getSimpleName().toLowerCase(), MultiPoint.class.getSimpleName());
-		lowerCaseMap.put(MultiPolygon.class.getSimpleName().toLowerCase(), MultiPolygon.class.getSimpleName());
-		lowerCaseMap.put(Point.class.getSimpleName().toLowerCase(), Point.class.getSimpleName());
-		lowerCaseMap.put(Polygon.class.getSimpleName().toLowerCase(), Polygon.class.getSimpleName());
-		lowerCaseMap.put(Circle.class.getSimpleName().toLowerCase(), Circle.class.getSimpleName());
+		classMap = new HashMap<>();
+		lowercaseClassMap = new HashMap<>();
+		registerType("Crs", Crs.class);
+		registerType(Feature.TYPE_NAME, Feature.class);
+		registerType(FeatureCollection.TYPE_NAME, FeatureCollection.class);
+		registerType(GeometryCollection.TYPE_NAME, GeometryCollection.class);
+		registerType(LineString.TYPE_NAME, LineString.class);
+		registerType(MultiLineString.TYPE_NAME, MultiLineString.class);
+		registerType(MultiPoint.TYPE_NAME, MultiPoint.class);
+		registerType(MultiPolygon.TYPE_NAME, MultiPolygon.class);
+		registerType(Point.TYPE_NAME, Point.class);
+		registerType(Polygon.TYPE_NAME, Polygon.class);
+		registerType(Circle.TYPE_NAME, Circle.class);
 	}
 
 	@Override
@@ -77,17 +87,18 @@ public class GeoJsonObjectAdapter implements JsonSerializer<GeoJsonObject>, Json
 		JsonObject jsonObject = json.getAsJsonObject();
 		String type = jsonObject.get("type").getAsString();
 
-		if (GeoJson.isUsingLowerCaseTypes && lowerCaseMap.containsKey(type))
+		Map<String, Class<?>> map = classMap;
+		if (GeoJson.isUsingLowerCaseTypes)
 		{
-			type = lowerCaseMap.get(type);
+			map = lowercaseClassMap;
 		}
 
 		Class<GeoJsonObject> cls;
 		try
 		{
-			cls = (Class<GeoJsonObject>)Class.forName(GeoJson.class.getPackage().getName().concat(".").concat(type));
+			cls = (Class<GeoJsonObject>) map.get(type);
 		}
-		catch (ClassNotFoundException e)
+		catch (ClassCastException e)
 		{
 			e.printStackTrace();
 			throw new JsonParseException(e.getMessage());

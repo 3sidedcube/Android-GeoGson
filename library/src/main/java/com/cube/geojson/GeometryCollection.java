@@ -1,12 +1,21 @@
 package com.cube.geojson;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
 public class GeometryCollection extends GeoJsonObject implements Iterable<GeoJsonObject>
 {
-	private List<GeoJsonObject> geometries = new ArrayList<GeoJsonObject>();
+	public static String TYPE_NAME = "GeometryCollection";
+
+	public GeometryCollection()
+	{
+		super(TYPE_NAME);
+	}
+
+	@SerializedName("geometries") private List<GeoJsonObject> geometries = new ArrayList<>();
 
 	public List<GeoJsonObject> getGeometries()
 	{

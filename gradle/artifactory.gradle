@@ -21,77 +21,62 @@
  * the License.
  */
 
-apply plugin: 'maven'
+apply plugin: 'maven-publish'
 apply plugin: 'signing'
-
-def setupPomInfo(pom)
-{
-	pom.groupId = GROUP
-	pom.artifactId = POM_ARTIFACT_ID
-	pom.version = VERSION_NAME
-
-	pom.project {
-		name POM_NAME
-		packaging POM_PACKAGING
-		description POM_DESCRIPTION
-		url POM_URL
-
-		scm {
-			url POM_SCM_URL
-			connection POM_SCM_CONNECTION
-			developerConnection POM_SCM_DEV_CONNECTION
-		}
-
-		licenses {
-			license {
-				name POM_LICENSE_NAME
-				url POM_LICENSE_URL
-				distribution 'repo'
-			}
-		}
-
-		developers {
-			developer {
-				id POM_DEVELOPER_ID
-				name POM_DEVELOPER_NAME
-			}
-		}
-	}
-}
-
-// Extra task definition is needed to work around naming conflict between maven and android plugins
-// http://stackoverflow.com/questions/18559932
-task installArchives(type: Upload) {
-	description "Installs artifacts to mavenLocal."
-	repositories.mavenInstaller {
-		configuration = configurations.default
-		setupPomInfo(pom)
-	}
-}
 
 ext.ARTIFACTORY_USERNAME = properties.get('ARTIFACTORY_USERNAME', '')
 ext.ARTIFACTORY_PASSWORD = properties.get('ARTIFACTORY_PASSWORD', '')
 
 afterEvaluate { project ->
-	uploadArchives {
-		repositories {
-			mavenDeployer {
-				beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
-				setupPomInfo(pom)
+	publishing {
+		publications {
+			mavenJava(MavenPublication) {
+				from components.java
+				groupId = GROUP
+				artifactId = POM_ARTIFACT_ID
+				version = VERSION_NAME
 
-				repository(url: 'http://oss.3sidedcube.com:8081/artifactory/internal') {
-					authentication(userName: ARTIFACTORY_USERNAME, password: ARTIFACTORY_PASSWORD)
+				pom {
+					name = POM_NAME
+					packaging = POM_PACKAGING
+					description = POM_DESCRIPTION
+					url = POM_URL
+
+					scm {
+						url = POM_SCM_URL
+						connection = POM_SCM_CONNECTION
+						developerConnection = POM_SCM_DEV_CONNECTION
+					}
+
+					licenses {
+						license {
+							name = POM_LICENSE_NAME
+							url = POM_LICENSE_URL
+							distribution = 'repo'
+						}
+					}
+
+					developers {
+						developer {
+							id = POM_DEVELOPER_ID
+							name = POM_DEVELOPER_NAME
+						}
+					}
 				}
-
-				snapshotRepository(url: 'http://oss.3sidedcube.com:8081/artifactory/snapshot') {
-					authentication(userName: ARTIFACTORY_USERNAME, password: ARTIFACTORY_PASSWORD)
+			}
+		}
+		repositories {
+			maven {
+				url = "http://oss.3sidedcube.com:8081/artifactory/internal"
+				allowInsecureProtocol = true
+				credentials {
+					username = ARTIFACTORY_USERNAME
+					password = ARTIFACTORY_PASSWORD
 				}
 			}
 		}
 	}
-
 	signing {
-		required { gradle.taskGraph.hasTask("uploadArchives") }
-		sign configurations.archives
+		sign publishing.publications.mavenJava
 	}
 }

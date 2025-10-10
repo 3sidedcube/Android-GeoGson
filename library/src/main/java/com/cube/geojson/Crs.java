@@ -1,12 +1,14 @@
 package com.cube.geojson;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.util.HashMap;
 import java.util.Map;
 
 public class Crs
 {
-	private String type = "name";
-	private Map<String, Object> properties = new HashMap<String, Object>();
+	@SerializedName("type") private String type = "name";
+	@SerializedName("properties") private Map<String, Object> properties = new HashMap<>();
 
 	public String getType()
 	{

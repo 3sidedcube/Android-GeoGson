@@ -5,8 +5,11 @@ import java.util.List;
 
 public class Polygon extends Geometry<List<LngLatAlt>>
 {
+	public static String TYPE_NAME = "Polygon";
+
 	public Polygon()
 	{
+		super(TYPE_NAME);
 	}
 
 	@Override public void finishPopulate()
@@ -16,11 +19,13 @@ public class Polygon extends Geometry<List<LngLatAlt>>
 
 	public Polygon(List<LngLatAlt> polygon)
 	{
+		super(TYPE_NAME);
 		add(polygon);
 	}
 
 	public Polygon(LngLatAlt... polygon)
 	{
+		super(TYPE_NAME);
 		add(Arrays.asList(polygon));
 	}
 

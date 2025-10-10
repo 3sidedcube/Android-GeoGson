@@ -1,12 +1,14 @@
 package com.cube.geojson;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.io.Serializable;
 
 public class LngLatAlt implements Serializable
 {
-	private double longitude;
-	private double latitude;
-	private double altitude = Double.NaN;
+	@SerializedName("longitude") private double longitude;
+	@SerializedName("latitude") private double latitude;
+	@SerializedName("altitude") private double altitude = Double.NaN;
 
 	public LngLatAlt()
 	{

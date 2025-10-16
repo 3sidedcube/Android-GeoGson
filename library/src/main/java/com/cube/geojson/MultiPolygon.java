@@ -1,9 +1,13 @@
 package com.cube.geojson;
 
+import java.io.Serial;
 import java.util.List;
 
 public class MultiPolygon extends Geometry<List<List<LngLatAlt>>>
 {
+	@Serial
+	private static final long serialVersionUID = -191681831119666019L;
+
 	public static String TYPE_NAME = "MultiPolygon";
 
 	public MultiPolygon()

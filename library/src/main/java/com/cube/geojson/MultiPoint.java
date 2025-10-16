@@ -1,8 +1,13 @@
 package com.cube.geojson;
 
 
+import java.io.Serial;
+
 public class MultiPoint extends Geometry<LngLatAlt>
 {
+	@Serial
+	private static final long serialVersionUID = -4722499037817102713L;
+
 	public static String TYPE_NAME = "MultiPoint";
 
 	public MultiPoint()

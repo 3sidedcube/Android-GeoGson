@@ -2,8 +2,13 @@ package com.cube.geojson;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.io.Serial;
+
 public class Point extends GeoJsonObject
 {
+	@Serial
+	private static final long serialVersionUID = -4043883441163707153L;
+
 	public static String TYPE_NAME = "Point";
 
 	@SerializedName("coordinates") protected LngLatAlt coordinates;

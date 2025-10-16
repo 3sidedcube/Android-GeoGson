@@ -2,8 +2,13 @@ package com.cube.geojson;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.io.Serial;
+
 public class Feature extends GeoJsonObject
 {
+	@Serial
+	private static final long serialVersionUID = 5351451912626812523L;
+
 	public static String TYPE_NAME = "Feature";
 	@SerializedName("geometry") private GeoJsonObject geometry;
 	@SerializedName("id") private String id;

@@ -2,6 +2,7 @@ package com.cube.geojson;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.io.Serial;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
@@ -9,6 +10,9 @@ import java.util.List;
 
 public class FeatureCollection extends GeoJsonObject implements Iterable<Feature>
 {
+	@Serial
+	private static final long serialVersionUID = -9218604739570504767L;
+
 	public static String TYPE_NAME = "FeatureCollection";
 
 	public FeatureCollection()

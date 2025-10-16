@@ -2,12 +2,16 @@ package com.cube.geojson;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.io.Serial;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
 public class GeometryCollection extends GeoJsonObject implements Iterable<GeoJsonObject>
 {
+	@Serial
+	private static final long serialVersionUID = -3111720313954782292L;
+
 	public static String TYPE_NAME = "GeometryCollection";
 
 	public GeometryCollection()

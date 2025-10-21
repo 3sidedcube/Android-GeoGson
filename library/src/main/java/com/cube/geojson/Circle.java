@@ -2,8 +2,13 @@ package com.cube.geojson;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.io.Serial;
+
 public class Circle extends Point
 {
+	@Serial
+	private static final long serialVersionUID = -8355841497926170670L;
+
 	public static String TYPE_NAME = "Circle";
 	@SerializedName("radius") private double radius;
 

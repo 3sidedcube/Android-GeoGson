@@ -2,10 +2,14 @@ package com.cube.geojson;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.io.Serial;
 import java.io.Serializable;
 
 public class LngLatAlt implements Serializable
 {
+	@Serial
+	private static final long serialVersionUID = 5661286917817657765L;
+
 	@SerializedName("longitude") private double longitude;
 	@SerializedName("latitude") private double latitude;
 	@SerializedName("altitude") private double altitude = Double.NaN;

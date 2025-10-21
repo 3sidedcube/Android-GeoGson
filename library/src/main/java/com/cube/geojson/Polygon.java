@@ -1,10 +1,14 @@
 package com.cube.geojson;
 
+import java.io.Serial;
 import java.util.Arrays;
 import java.util.List;
 
 public class Polygon extends Geometry<List<LngLatAlt>>
 {
+	@Serial
+	private static final long serialVersionUID = 3863207152526191906L;
+
 	public static String TYPE_NAME = "Polygon";
 
 	public Polygon()

@@ -63,12 +63,18 @@ public class GeoJsonObjectAdapter implements JsonSerializer<GeoJsonObject>, Json
 	@SuppressWarnings("unchecked")
 	public JsonElement serialize(GeoJsonObject src, Type typeOfSrc, JsonSerializationContext context)
 	{
+		Map<String, Class<?>> map = classMap;
+		if (GeoJson.isUsingLowerCaseTypes)
+		{
+			map = lowercaseClassMap;
+		}
+
 		Class<GeoJsonObject> cls;
 		try
 		{
-			cls = (Class<GeoJsonObject>)Class.forName(GeoJson.class.getPackage().getName().concat(".").concat(src.getType()));
+			cls = (Class<GeoJsonObject>) map.get(src.getType());
 		}
-		catch (ClassNotFoundException e)
+		catch (ClassCastException e)
 		{
 			e.printStackTrace();
 			throw new JsonSyntaxException(e.getMessage());

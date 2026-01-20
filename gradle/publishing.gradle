@@ -5,8 +5,9 @@
  * signing.keyId=<HEXADECIMCAL KEY ID RETRIVABLE VIA gpg --list-keys>
  * signing.password=<KEY PASSWORD>
  * signing.secretKeyRingFile=<PATH TO KEY RING, USUALLY ~/.gnupg/secring.gpg>
- * ARTIFACTORY_USERNAME=<USERNAME>
- * ARTIFACTORY_PASSWORD=<CORRESPONDING PASSWORD>
+ * ANDROID_INTERNAL_PUBLISHING_URL=<URL TO INTERNAL REPOSITORY>
+ * ANDROID_INTERNAL_PUBLISHING_USERNAME=<USERNAME>
+ * ANDROID_INTERNAL_PUBLISHING_PASSWORD=<CORRESPONDING PASSWORD>
  *
  * Copyright (C) 2014 SCVNGR, Inc. d/b/a LevelUp
  *
@@ -24,8 +25,9 @@
 apply plugin: 'maven-publish'
 apply plugin: 'signing'
 
-ext.ARTIFACTORY_USERNAME = properties.get('ARTIFACTORY_USERNAME', '')
-ext.ARTIFACTORY_PASSWORD = properties.get('ARTIFACTORY_PASSWORD', '')
+ext.PUBLISHING_URL = properties.get('ANDROID_INTERNAL_PUBLISHING_URL', '')
+ext.PUBLISHING_USERNAME = properties.get('ANDROID_INTERNAL_PUBLISHING_USERNAME', '')
+ext.PUBLISHING_PASSWORD = properties.get('ANDROID_INTERNAL_PUBLISHING_PASSWORD', '')
 
 afterEvaluate { project ->
 	publishing {
@@ -67,11 +69,10 @@ afterEvaluate { project ->
 		}
 		repositories {
 			maven {
-				url = "http://oss.3sidedcube.com:8081/artifactory/internal"
-				allowInsecureProtocol = true
+				url = PUBLISHING_URL
 				credentials {
-					username = ARTIFACTORY_USERNAME
-					password = ARTIFACTORY_PASSWORD
+					username = PUBLISHING_USERNAME
+					password = PUBLISHING_PASSWORD
 				}
 			}
 		}
